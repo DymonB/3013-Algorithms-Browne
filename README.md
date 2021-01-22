@@ -9,7 +9,7 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-| 03      |   https://github.com/DymonB/3013-Algorithms-Browne/tree/main/Assignments/A03          |        Banner                |
+| 03      |   A03          |        Banner                |
 | 04      |             |    Linked List             |
 
 ![face pic](https://user-images.githubusercontent.com/70247507/105450630-7f663880-5c40-11eb-8bf6-d783e772424e.jpeg)
