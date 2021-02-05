@@ -1,3 +1,29 @@
+/*****************************************************************************
+*                    
+*  Author:           Dymon Browne
+*  Email:            dymon.browne@hotmail.com
+*  Label:            P01
+*  Title:            Resize Array Base Stack
+*  Course:           CPMS 3013
+*  Semester:         Spring 2020
+* 
+*  Description:
+*        This program reads from the file if a number is even push on 
+*         the stack and odd numbers will pop. It will Also resize the stack
+*         if too full. and keep track of the size  
+* 
+*  Usage:
+*         - $ ./ main.cpp
+*         - $ ./ numtest.txt
+*         - $ ./ output.txt
+* 
+*  Files:  
+*      main.cpp
+*      numstest.txt     
+*      output.txt           
+*****************************************************************************/
+
+
 #include <iostream>
 #include <fstream>
 using namespace std;
