@@ -4,6 +4,4 @@
 
 ### Overview
 
-#### - The stack implementation here: has a Resize method that ONLY will make the stack larger as we add items.
-#### - This means that the stack will never shrink if we remove many items.
-#### - We should probably remedy this issue.
+#### * This program reads from the file if a number is even push on the stack and odd numbers will pop. It will Also resize the stack if too full. and keep track of the size  
