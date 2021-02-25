@@ -1,5 +1,4 @@
-# Complexity
-## Big O
+
 
 Count = 1024^2 = 1048576
 
