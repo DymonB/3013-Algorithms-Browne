@@ -9,7 +9,7 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-| 03    |   A03       |        Banner          |
+| 03    |   <a href="#">A03</a>       |        Banner          |
 | 04    |             |    Linked List         |
 | 05    |             | Resize Stack           |
 | 06    |             | Complexity             |
