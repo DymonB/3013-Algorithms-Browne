@@ -1,1 +1,33 @@
 ![console 3013](https://user-images.githubusercontent.com/70247507/116621930-7f459b00-a909-11eb-9119-28250d060143.PNG)
+ ./main
+0.199738 seconds to read in the data.
+
+Enter Key...
+Keypressed: S = 83
+Current Substr: S
+14196 words found in 0.0206886 seconds
+SAADI SAAR SAARINEN SAARLAND SABA SABADELL SABADILLA SABAEAN SABAH SABAOTH 
+
+
+Enter Z to Quit
+Keypressed: T = 84
+Current Substr: ST
+2081 words found in 0.00478505 seconds
+ST STAB STABAT STABBED STABBER STABBING STABILE STABILITIES STABILITY STABILITYS 
+
+
+Enter Z to Quit
+Keypressed: E = 69
+Current Substr: STE
+381 words found in 0.001048 seconds
+STEAD STEADFAST STEADFASTLY STEADFASTNESS STEADIED STEADIER STEADIES STEADIEST STEADILY STEADINESS 
+
+
+Enter Z to Quit
+Keypressed: E = 69
+Current Substr: STEE
+52 words found in 0.000126246 seconds
+STEED STEEDS STEEL STEELE STEELED STEELERS STEELES STEELHEAD STEELIE STEELIER 
+
+
+Enter Z to Quit
