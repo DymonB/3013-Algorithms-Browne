@@ -1,0 +1,338 @@
+/************************************************************
+*
+*    Author:           Dymon Browne
+*    Email:            dymon.browne@hotmail.com
+*    Label:            P04
+*    Title:            Processing in Trie Tree Time
+*    Course:           CMPS 3013
+*    Semester:         Spring 2021
+*    Description:
+*         This program implements a Trie data structure to
+*        create a dictionary. It will read from a file with
+*        the dictionary words. The program will calculate 
+*        the time it take to find the words, showing the
+*        top 10 results and also uses getching to hold 
+*        input from the keyboard. 
+*      
+*    Files:
+*         main.cpp
+*         Timer.hpp
+*         mygetch.hpp
+*         termcolor.hpp
+*         dictionary.txt
+*
+*    Usage:
+*           main.cpp         : driver program
+*             
+*           dictionary.txt   : Input file
+*
+*           output will be display on the console in color.
+*
+****************************************************************/
+
+#include <iostream>
+#include "timer.hpp"
+#include <string>
+#include "termcolor.hpp"
+#include <vector>
+#include <fstream>
+#include "getch.hpp"
+#include <algorithm>
+
+using namespace std;
+
+// defines the character size of 26 for the alphabet
+#define CHAR_SIZE 26
+
+
+/*
+    Struct Name: wordNode
+
+    Description:
+        Holds a string for a word
+        
+
+    Public Methods:
+        wordNode()
+
+    Private Methods:
+        - None
+
+ */
+
+struct wordNode
+{
+    bool Leaf;
+    string Word;
+    wordNode* Character[CHAR_SIZE];
+
+    wordNode()
+    {
+        Leaf = false;
+        Word = " ";
+
+        for (int i = 0; i < CHAR_SIZE; i++)
+        {
+            this->Character[i] = nullptr;
+        }
+    }
+
+};
+
+
+/*
+    Class Name: Trie_Tree
+
+    Description:
+        Creates the Trie Tree made of wordNodes
+
+    Public Methods:
+        - Trie_Tree() 
+        - void Insert_Data(string word)
+        - vector<string> Find(string key)
+
+    Private/Protected Methods:
+        - void Find(wordNode* &Current, string key)
+
+    Usage:
+        Creates Trie tree
+*/
+
+class Trie_Tree
+{
+protected:
+    wordNode* Root;
+    vector<string> Search_Results;
+
+  /*
+    Description:
+        Finds results from letters entered
+        and saves them to the results
+
+    Params:
+        - wordNode* &Current
+        - string key
+
+    Returns:
+        - None, Void
+*/
+    void Find(wordNode* &Current, string key)
+    {
+        if (Current->Leaf)
+        {
+            Search_Results.push_back(key);
+        }
+
+
+        for (int i = 0; i < 26; i++)
+        {
+            if (Current->Character[i])
+            {
+                Find(Current->Character[i], key + char(i + 65));
+            }
+        }
+    }
+
+public:
+
+    /*
+        Constructor : Trie_Tree
+
+        Description:
+            Allocate new memory stored wordNode
+
+        Params:
+           - None
+
+        Returns:
+           - None
+    */
+    Trie_Tree()
+    {
+        Root = new wordNode;
+    }
+
+    /*
+        Description:
+            Finds the results for the current string
+            and returns the vector of results
+
+        Params:
+            - string key
+
+        Returns:
+            - vector<string> Results
+    */
+    vector<string> Find(string key)
+    {
+        wordNode* Current = Root;
+
+        if (Search_Results.size() != 0)
+        {
+            Search_Results.clear();
+        }
+
+        for (int i = 0; i < key.length(); i++)
+        {
+            Current = Current->Character[key[i] - 65];
+        }
+
+        Find(Current, key);
+        return Search_Results;                         // return the vector of results
+    }
+
+        /*
+    Public : Insert_Data(string key)
+
+    Description:
+        inserts data in to the trie tree
+    Params:
+        - string key
+
+    Returns:
+        - None, void
+    */
+    void Insert_Data(string word)
+    {
+        wordNode* Current = Root;
+
+        for (int i = 0; i < word.size(); i++)
+        {
+            if (Current->Character[word[i] - 65] == nullptr)
+            {
+                Current->Character[word[i] - 65] = new wordNode();
+            }
+
+            Current = Current->Character[word[i] - 65];
+        }
+
+        Current->Leaf = true;
+    }
+
+};
+
+
+int main()
+{
+    ifstream infile;
+    infile.open("dictionary.txt");
+
+    Trie_Tree The_Tree;
+    vector<string> Dictionary;      
+
+    char k;                 
+    string word = "";       
+    vector<string> Matches; // list of matches found
+
+    string Top_Results[10];   // Show top 10 results
+    int SearchResults;        // # of results
+
+
+    Timer T1;                    
+    T1.Start();                 // State time
+
+    while (!infile.eof())      // reads in the words
+    {
+        string the_word;
+
+        infile >> the_word;
+
+        Dictionary.push_back(the_word);
+    }
+
+    T1.End();
+
+    cout << T1.Seconds() << " seconds to read in the data.\n";
+
+
+    for (int z = 0; z < Dictionary.size(); z++)
+    {
+        string Temp = Dictionary[z];
+
+        The_Tree.Insert_Data(Temp);
+    }
+
+    cout << endl  << termcolor:: red << "Enter Key..."
+          << termcolor::reset<< endl;
+
+    // the letter Z terminates the program
+    while ((k = getch()) != 'Z')
+    {
+
+        
+        if ((int)k == 127)
+        {
+            if (word.size() > 0)
+            {
+                word = word.substr(0, word.size() - 1);
+            }
+        }
+
+        else
+        {
+            // makes sure only letters are pressed
+            if (!isalpha(k))
+            {
+                cout << "Letters only!" << endl;
+                continue;
+            }
+
+            // converts words from capital to lowercase
+            if ((int)k >= 97)
+            {
+                k -= 32;
+            }
+            word += k; // append char to word
+        }
+
+
+        Timer T2;           // Timer for how long it takes to return word suggestions and total words found
+
+        T2.Start();
+        Matches = The_Tree.Find(word);
+        T2.End();
+
+        SearchResults = Matches.size();
+
+
+        if ((int)k != 32)   
+        { 
+            // Find any dicword in the array that partially match
+            // our substr word
+            cout << "Keypressed: " << termcolor::green << k << " = " 
+            << termcolor::red << (int)k << termcolor::reset << endl;
+            cout << "Current Substr: " << termcolor::green << word 
+            << termcolor::reset << endl;
+            cout << termcolor::green << SearchResults << " words found in " 
+            << termcolor::red << T2.Seconds() 
+            << termcolor::reset << " seconds" << termcolor::reset << endl;
+
+            // prints out the first 10 results
+            if (Matches.size() >= 10)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Top_Results[i] = Matches[i];
+                    cout << Top_Results[i] << " ";
+                }
+            }
+
+            else
+            {
+                for (int j = 0; j < Matches.size(); j++)
+                {
+                    Top_Results[j] = Matches[j];
+                    cout << Top_Results[j] << " ";
+                }
+            }
+
+            cout << endl << endl;
+        }
+        cout << endl  << termcolor:: red << "Enter Z to Quit"
+          << termcolor::reset<< endl;
+
+    }
+    
+    infile.close();
+    return 0;
+}
