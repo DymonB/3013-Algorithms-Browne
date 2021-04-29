@@ -9,7 +9,7 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-| 03    |   <a href="https://github.com/DymonB/3013-Algorithms-Browne/tree/main/Assignments/A03" /></a>      |        Banner          |
+| 03    |   <a href="https://github.com/DymonB/3013-Algorithms-Browne/tree/main/Assignments/A03" />A03</a>      |        Banner          |
 | 04    |             |    Linked List         |
 | 05    |             | Resize Stack           |
 | 06    |             | Complexity             |
